@@ -11,9 +11,11 @@ public class IncidentSystem : MonoBehaviour
 
     private float _timer;
 
-    // Сис-ма хранения инцидента. ВРЕМЕННОЕ РЕШЕНИЕ
-    private int _currentIncidentType = -1;
-    private bool _hasActiveIncident = false;
+    // Сис-ма хранения инцидента
+    private Incident _currentIncident;
+    public bool HasActiveIncident => _currentIncident != null;
+    public Incident CurrentIncident => _currentIncident;
+    private Incident[] _incidentCatalog;
 
     private GameStateManager _gameState;
     private CityMetrics _metrics;
@@ -23,6 +25,12 @@ public class IncidentSystem : MonoBehaviour
         // Ищем зависимости в сцене (позже сделаем аккуратнее через ссылки/DI).
         _gameState = FindFirstObjectByType<GameStateManager>();
         _metrics = FindFirstObjectByType<CityMetrics>();
+
+        _incidentCatalog = new[]
+        {
+            new Incident("FIRE", "Пожар в Distric-01", 7),
+            new Incident("ACC", "ДТП на Main Ave", 4),
+        };
     }
 
     private void Update()
@@ -56,15 +64,10 @@ public class IncidentSystem : MonoBehaviour
     private void SpawnTestIncident()
     {
         // Пока тупо: случайно выбираем тип из двух
-        int roll = Random.Range(0, 2);
+        int roll = Random.Range(0, _incidentCatalog.Length);
+        _currentIncident = _incidentCatalog[roll];
 
-        _currentIncidentType = roll;
-        _hasActiveIncident = true;
-
-        if(roll == 0)
-            Debug.Log("[Incident] FIRE reported in District-01.");
-        else
-            Debug.Log("[Incident] TRAFFIC ACCIDENT on Main Ave.");
+        Debug.Log($"[Incident] {_currentIncident.Id}: {_currentIncident.Title}. Тяжесть: {_currentIncident.BaseSeverity}");
 
         // Переводим игру в режим активного инцидента:
         // дальше генерация стопается, пока игрок не "разрулит".
@@ -73,29 +76,30 @@ public class IncidentSystem : MonoBehaviour
 
     public void ResolveIncident(bool success)
     {
-        if (!_hasActiveIncident)
+        if (_currentIncident == null)
             return;
 
-        Debug.Log("[Incident] Resolving... Success: " + success);
+        Debug.Log($"[Incident] Resolving {_currentIncident.Id}. Success: " + success);
 
-        if (_currentIncidentType == 0) // FIRE
+        switch (_currentIncident.Id)
         {
-            if (success)
-                _metrics.ApplyChange(+2, +3, -5);
-            else
-                _metrics.ApplyChange(-5, -3, +10);
-        }
-        else if (_currentIncidentType == 1) // ACCIDENT
-        {
-            if (success)
-                _metrics.ApplyChange(+1, +2, -3);
-            else
-                _metrics.ApplyChange(-3, -2, +6);
+            case "FIRE":
+                if (success)
+                    _metrics.ApplyChange(+2, +3, -5);
+                else
+                    _metrics.ApplyChange(-5, -3, +10);
+                break;
+            case "ACC":
+                if (success)
+                    _metrics.ApplyChange(+2, +3, -5);
+                else
+                    _metrics.ApplyChange(-5, -3, +10);
+                break;
+            default:
+                break;
         }
 
-        _currentIncidentType = -1;
-        _hasActiveIncident = false;
-
+        _currentIncident = null;
         _gameState.SetState(GameState.Running);
     }
 }
