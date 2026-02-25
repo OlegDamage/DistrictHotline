@@ -543,6 +543,7 @@ GameObject:
   - component: {fileID: 477602395}
   - component: {fileID: 477602394}
   - component: {fileID: 477602393}
+  - component: {fileID: 477602396}
   m_Layer: 5
   m_Name: TopBar
   m_TagString: Untagged
@@ -636,6 +637,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 477602391}
   m_CullTransparentMesh: 1
+--- !u!114 &477602396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 477602391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 106751ac1d54b8f4382a83d7baf046f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MetricsUI
+  trustText: {fileID: 735751746}
+  controlText: {fileID: 1889857410}
+  loadText: {fileID: 464596269}
 --- !u!1 &592277220
 GameObject:
   m_ObjectHideFlags: 0

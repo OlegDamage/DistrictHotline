@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEditor;
+using UnityEngine;
 
 public class CityMetrics : MonoBehaviour
 {
@@ -15,6 +17,9 @@ public class CityMetrics : MonoBehaviour
     public int Trust => trust;
     public int Control => control;
     public int Load => load;
+
+    // Ивент на изменение параметров в UI
+    public event Action<int, int, int> OnMetricsChanged;
 
     /// <summary>
     /// Применяет изменения к метрикам.
@@ -35,5 +40,7 @@ public class CityMetrics : MonoBehaviour
         // 3) Лог для проверки
         Debug.Log($"[CityMetrics] Applied Δ(T:{trustDelta}, C:{controlDelta}, L:{loadDelta}) -> " +
                   $"Now (T:{trust}, C:{control}, L:{load})");
+
+        OnMetricsChanged?.Invoke(trust, control, load);
     }
 }
