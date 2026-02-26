@@ -6,13 +6,10 @@ public class MetricsUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI trustText;
     [SerializeField] private TextMeshProUGUI controlText;
     [SerializeField] private TextMeshProUGUI loadText;
-
-    private CityMetrics metrics;
+    [SerializeField] private CityMetrics metrics;
 
     private void Start()
     {
-        metrics = FindAnyObjectByType<CityMetrics>();
-
         if(metrics != null)
         {
             metrics.OnMetricsChanged += UpdateUI;
