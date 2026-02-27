@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -19,6 +20,9 @@ public class IncidentSystem : MonoBehaviour
 
     private GameStateManager _gameState;
     private CityMetrics _metrics;
+
+    public event Action<Incident> OnIncidentRaised;
+    public event Action OnIncidentCleared;
 
     private void Awake()
     {
@@ -64,8 +68,9 @@ public class IncidentSystem : MonoBehaviour
     private void SpawnTestIncident()
     {
         // Пока тупо: случайно выбираем тип из двух
-        int roll = Random.Range(0, _incidentCatalog.Length);
+        int roll = UnityEngine.Random.Range(0, _incidentCatalog.Length);
         _currentIncident = _incidentCatalog[roll];
+        OnIncidentRaised?.Invoke(_currentIncident);
 
         Debug.Log($"[Incident] {_currentIncident.Id}: {_currentIncident.Title}. Тяжесть: {_currentIncident.BaseSeverity}");
 
@@ -100,6 +105,7 @@ public class IncidentSystem : MonoBehaviour
         }
 
         _currentIncident = null;
+        OnIncidentCleared?.Invoke();
         _gameState.SetState(GameState.Running);
     }
 }
