@@ -46,6 +46,7 @@ public class DecisionUI : MonoBehaviour
         titleText.text = inc.Title;
         protocolAButton.interactable = true;
         protocolBButton.interactable = true;
+        _locked = false;
         root.SetActive(true);
     }
 
