@@ -16,13 +16,15 @@ public class DecisionUI : MonoBehaviour
     [Header("Refs")]
     [SerializeField] private IncidentSystem incidentSystem;
 
+    private bool _locked; // защита от двойного клика
+
     private void Awake()
     {
         // ѕр€м панель на старте
         if (root != null) root.SetActive(false);
 
-        protocolAButton.onClick.AddListener(() => incidentSystem.ResolveIncident(ProtocolId.Intervene));
-        protocolBButton.onClick.AddListener(() => incidentSystem.ResolveIncident(ProtocolId.Wait));
+        protocolAButton.onClick.AddListener(() => Choose(ProtocolId.Intervene));
+        protocolBButton.onClick.AddListener(() => Choose(ProtocolId.Wait));
     }
 
     private void OnEnable()
@@ -42,11 +44,23 @@ public class DecisionUI : MonoBehaviour
         idText.text = inc.Id;
         severityText.text = inc.BaseSeverity.ToString();
         titleText.text = inc.Title;
+        protocolAButton.interactable = true;
+        protocolBButton.interactable = true;
         root.SetActive(true);
     }
 
     private void Hide()
     {
         root.SetActive(false);
+    }
+
+    private void Choose(ProtocolId protocol)
+    {
+        if(_locked) return; _locked = true;
+
+        protocolAButton.interactable = false;
+        protocolBButton.interactable = false;
+
+        incidentSystem.ResolveIncident(protocol);
     }
 }

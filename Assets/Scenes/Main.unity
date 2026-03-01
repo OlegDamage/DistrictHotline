@@ -2347,6 +2347,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IncidentSystem
   incidentIntervalSeconds: 3
+  debugHotkeys: 1
 --- !u!1 &1438323085
 GameObject:
   m_ObjectHideFlags: 0

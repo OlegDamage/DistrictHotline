@@ -8,6 +8,7 @@ public class IncidentSystem : MonoBehaviour
 {
     [Header("Spawn settings")]
     [SerializeField] private float incidentIntervalSeconds = 10f;
+    [SerializeField] private bool debugHotkeys = true;
 
     private float _timer;
 
@@ -43,7 +44,7 @@ public class IncidentSystem : MonoBehaviour
             return;
 
         // Тест системы решений инцидентов
-        if (_gameState.CurrentState == GameState.IncidentActive)
+        if (_gameState.CurrentState == GameState.IncidentActive && debugHotkeys)
         {
             if (Input.GetKeyDown(KeyCode.Y))
                 ResolveIncident(ProtocolId.Intervene);
