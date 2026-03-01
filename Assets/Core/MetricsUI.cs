@@ -10,11 +10,12 @@ public class MetricsUI : MonoBehaviour
 
     private void Start()
     {
-        if(metrics != null)
+        if (metrics != null)
         {
             metrics.OnMetricsChanged += UpdateUI;
             UpdateUI(metrics.Trust, metrics.Control, metrics.Load);
         }
+        else { Debug.LogWarning("Connect your Metrics!"); }
     }
 
     private void OnDestroy()

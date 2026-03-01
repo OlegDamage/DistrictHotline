@@ -2,8 +2,7 @@ using System;
 using UnityEngine;
 
 /// <summary>
-/// IncidentSystem отвечает за появление новых инцидентов.
-/// Пока без UI: генерим тестовый инцидент по таймеру и переводим игру в IncidentActive.
+/// IncidentSystem отвечает за появление новых инцидентов
 /// </summary>
 public class IncidentSystem : MonoBehaviour
 {
@@ -47,9 +46,9 @@ public class IncidentSystem : MonoBehaviour
         if (_gameState.CurrentState == GameState.IncidentActive)
         {
             if (Input.GetKeyDown(KeyCode.Y))
-                ResolveIncident(true);
+                ResolveIncident(ProtocolId.Intervene);
             if (Input.GetKeyDown(KeyCode.N))
-                ResolveIncident(false);
+                ResolveIncident(ProtocolId.Wait);
         }
         //-----
 
@@ -79,26 +78,21 @@ public class IncidentSystem : MonoBehaviour
         _gameState.SetState(GameState.IncidentActive);
     }
 
-    public void ResolveIncident(bool success)
+    public void ResolveIncident(ProtocolId protocol)
     {
         if (_currentIncident == null)
             return;
 
-        Debug.Log($"[Incident] Resolving {_currentIncident.Id}. Success: " + success);
+        Debug.Log($"[Incident] Resolving {_currentIncident.Id}. Protocol: " + protocol.ToString());
 
+        // Простейшая логика последствий (для FIRE/ACC).
         switch (_currentIncident.Id)
         {
             case "FIRE":
-                if (success)
-                    _metrics.ApplyChange(+2, +3, -5);
-                else
-                    _metrics.ApplyChange(-5, -3, +10);
+                ApplyFire(protocol, _currentIncident.BaseSeverity);
                 break;
             case "ACC":
-                if (success)
-                    _metrics.ApplyChange(+2, +3, -5);
-                else
-                    _metrics.ApplyChange(-5, -3, +10);
+                ApplyAccident(protocol, _currentIncident.BaseSeverity);
                 break;
             default:
                 break;
@@ -107,5 +101,25 @@ public class IncidentSystem : MonoBehaviour
         _currentIncident = null;
         OnIncidentCleared?.Invoke();
         _gameState.SetState(GameState.Running);
+    }
+
+    private void ApplyFire(ProtocolId protocol, int severity)
+    {
+        // Чем выше тяжесть, тем сильнее эффекты
+        // Вмешаться: доверие растёт, нагрузка растёт, контроль слегка растёт
+        // Выждать: доврие падает, контроль падает, нагрузка растёт ещё сильнее
+        if (protocol == ProtocolId.Intervene)
+            _metrics.ApplyChange(+2 + severity / 3, +1, +3 + severity); // пример
+        else
+            _metrics.ApplyChange(-3 - severity / 2, -2, +5 + severity * 2);
+    }
+
+    private void ApplyAccident(ProtocolId protocol, int severity)
+    {
+        // ДТП: контроль важнее, доверие менее чувствительно, нагрузка тоже растёт
+        if (protocol == ProtocolId.Intervene)
+            _metrics.ApplyChange(+1, +2 + severity / 2, +2 + severity); // пример
+        else
+            _metrics.ApplyChange(-2, -3 - severity / 2, +3 + severity * 2);
     }
 }

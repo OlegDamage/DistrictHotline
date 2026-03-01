@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,8 +21,8 @@ public class DecisionUI : MonoBehaviour
         // Прям панель на старте
         if (root != null) root.SetActive(false);
 
-        protocolAButton.onClick.AddListener(() => Resolve(true));
-        protocolBButton.onClick.AddListener(() => Resolve(false));
+        protocolAButton.onClick.AddListener(() => incidentSystem.ResolveIncident(ProtocolId.Intervene));
+        protocolBButton.onClick.AddListener(() => incidentSystem.ResolveIncident(ProtocolId.Wait));
     }
 
     private void OnEnable()
@@ -47,11 +48,5 @@ public class DecisionUI : MonoBehaviour
     private void Hide()
     {
         root.SetActive(false);
-    }
-
-    private void Resolve(bool success)
-    {
-        incidentSystem.ResolveIncident(success);
-        // Hide() вызовется через событие OnIcidentCleared
     }
 }
