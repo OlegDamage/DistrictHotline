@@ -24,6 +24,9 @@ public class DistrictUI : MonoBehaviour
         incidentSystem.OnIncidentRaised += OnIncidentRaised;
         incidentSystem.OnIncidentCleared += OnIncidentCleared;
 
+        incidentSystem.OnIncidentRaised += HandleIncidentRaised;
+        incidentSystem.OnIncidentCleared += HandleIncidentCleared;
+
         ApplyState(incidentSystem.CurrentIncident);
     }
 
@@ -33,6 +36,9 @@ public class DistrictUI : MonoBehaviour
 
         incidentSystem.OnIncidentRaised -= OnIncidentRaised;
         incidentSystem.OnIncidentCleared -= OnIncidentCleared;
+
+        incidentSystem.OnIncidentRaised -= HandleIncidentRaised;
+        incidentSystem.OnIncidentCleared -= HandleIncidentCleared;
     }
 
     private void OnIncidentRaised(Incident inc)
@@ -57,5 +63,19 @@ public class DistrictUI : MonoBehaviour
             if (active) messageText.text = $"АКТИВНО: {inc.Id} ({districtName})";
             else messageText.text = "";
         }
+    }
+
+    private void HandleIncidentRaised(Incident incident)
+    {
+        SetDistrictState(DistrictState.Incident);
+    }
+    private void HandleIncidentCleared()
+    {
+        SetDistrictState(DistrictState.Normal);
+    }
+
+    public void SetDistrictState(DistrictState state)
+    {
+        // TODO: visuals later (icon, pulse, label, glow)
     }
 }
