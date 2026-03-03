@@ -1844,7 +1844,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DistrictUI
   incidentSystem: {fileID: 1367217455}
   incidentMarker: {fileID: 13705259}
-  messgaeRoot: {fileID: 1389341010}
+  messageRoot: {fileID: 1389341010}
   messageText: {fileID: 1389341012}
   districtName: District-01
 --- !u!1 &1130682469

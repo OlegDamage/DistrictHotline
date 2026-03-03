@@ -8,7 +8,7 @@ public class DistrictUI : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] private GameObject incidentMarker; // обозначение инцидента
-    [SerializeField] private GameObject messgaeRoot; // объект сообщения
+    [SerializeField] private GameObject messageRoot; // объект сообщения
     [SerializeField] private TextMeshProUGUI messageText; // текст сообщения
 
     [Header("Config")]
@@ -50,7 +50,7 @@ public class DistrictUI : MonoBehaviour
         bool active = inc != null;
 
         if(incidentMarker != null) incidentMarker.SetActive(active);
-        if(messgaeRoot != null) messgaeRoot.SetActive(active);
+        if(messageRoot != null) messageRoot.SetActive(active);
 
         if(messageText != null)
         {
