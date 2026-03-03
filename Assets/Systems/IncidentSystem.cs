@@ -1,8 +1,8 @@
-using System;
+п»їusing System;
 using UnityEngine;
 
 /// <summary>
-/// IncidentSystem отвечает за появление новых инцидентов
+/// IncidentSystem РѕС‚РІРµС‡Р°РµС‚ Р·Р° РїРѕСЏРІР»РµРЅРёРµ РЅРѕРІС‹С… РёРЅС†РёРґРµРЅС‚РѕРІ
 /// </summary>
 public class IncidentSystem : MonoBehaviour
 {
@@ -12,7 +12,7 @@ public class IncidentSystem : MonoBehaviour
 
     private float _timer;
 
-    // Сис-ма хранения инцидента
+    // РЎРёСЃ-РјР° С…СЂР°РЅРµРЅРёСЏ РёРЅС†РёРґРµРЅС‚Р°
     private Incident _currentIncident;
     public bool HasActiveIncident => _currentIncident != null;
     public Incident CurrentIncident => _currentIncident;
@@ -26,24 +26,24 @@ public class IncidentSystem : MonoBehaviour
 
     private void Awake()
     {
-        // Ищем зависимости в сцене (позже сделаем аккуратнее через ссылки/DI).
+        // РС‰РµРј Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РІ СЃС†РµРЅРµ (РїРѕР·Р¶Рµ СЃРґРµР»Р°РµРј Р°РєРєСѓСЂР°С‚РЅРµРµ С‡РµСЂРµР· СЃСЃС‹Р»РєРё/DI).
         _gameState = FindFirstObjectByType<GameStateManager>();
         _metrics = FindFirstObjectByType<CityMetrics>();
 
         _incidentCatalog = new[]
         {
-            new Incident("FIRE", "Пожар в Distric-01", 7),
-            new Incident("ACC", "ДТП на Main Ave", 4),
+            new Incident("FIRE", "РџРѕР¶Р°СЂ РІ Distric-01", 7),
+            new Incident("ACC", "Р”РўРџ РЅР° Main Ave", 4),
         };
     }
 
     private void Update()
     {
-        // Генерируем инциденты только когда игра "идёт"
+        // Р“РµРЅРµСЂРёСЂСѓРµРј РёРЅС†РёРґРµРЅС‚С‹ С‚РѕР»СЊРєРѕ РєРѕРіРґР° РёРіСЂР° "РёРґС‘С‚"
         if (_gameState == null || _metrics == null)
             return;
 
-        // Тест системы решений инцидентов
+        // РўРµСЃС‚ СЃРёСЃС‚РµРјС‹ СЂРµС€РµРЅРёР№ РёРЅС†РёРґРµРЅС‚РѕРІ
         if (_gameState.CurrentState == GameState.IncidentActive && debugHotkeys)
         {
             if (Input.GetKeyDown(KeyCode.Y))
@@ -67,15 +67,15 @@ public class IncidentSystem : MonoBehaviour
 
     private void SpawnTestIncident()
     {
-        // Пока тупо: случайно выбираем тип из двух
+        // РџРѕРєР° С‚СѓРїРѕ: СЃР»СѓС‡Р°Р№РЅРѕ РІС‹Р±РёСЂР°РµРј С‚РёРї РёР· РґРІСѓС…
         int roll = UnityEngine.Random.Range(0, _incidentCatalog.Length);
         _currentIncident = _incidentCatalog[roll];
         OnIncidentRaised?.Invoke(_currentIncident);
 
-        Debug.Log($"[Incident] {_currentIncident.Id}: {_currentIncident.Title}. Тяжесть: {_currentIncident.BaseSeverity}");
+        Debug.Log($"[Incident] {_currentIncident.Id}: {_currentIncident.Title}. РўСЏР¶РµСЃС‚СЊ: {_currentIncident.BaseSeverity}");
 
-        // Переводим игру в режим активного инцидента:
-        // дальше генерация стопается, пока игрок не "разрулит".
+        // РџРµСЂРµРІРѕРґРёРј РёРіСЂСѓ РІ СЂРµР¶РёРј Р°РєС‚РёРІРЅРѕРіРѕ РёРЅС†РёРґРµРЅС‚Р°:
+        // РґР°Р»СЊС€Рµ РіРµРЅРµСЂР°С†РёСЏ СЃС‚РѕРїР°РµС‚СЃСЏ, РїРѕРєР° РёРіСЂРѕРє РЅРµ "СЂР°Р·СЂСѓР»РёС‚".
         _gameState.SetState(GameState.IncidentActive);
     }
 
@@ -86,7 +86,7 @@ public class IncidentSystem : MonoBehaviour
 
         Debug.Log($"[Incident] Resolving {_currentIncident.Id}. Protocol: " + protocol.ToString());
 
-        // Простейшая логика последствий (для FIRE/ACC).
+        // РџСЂРѕСЃС‚РµР№С€Р°СЏ Р»РѕРіРёРєР° РїРѕСЃР»РµРґСЃС‚РІРёР№ (РґР»СЏ FIRE/ACC).
         switch (_currentIncident.Id)
         {
             case "FIRE":
@@ -106,20 +106,20 @@ public class IncidentSystem : MonoBehaviour
 
     private void ApplyFire(ProtocolId protocol, int severity)
     {
-        // Чем выше тяжесть, тем сильнее эффекты
-        // Вмешаться: доверие растёт, нагрузка растёт, контроль слегка растёт
-        // Выждать: доврие падает, контроль падает, нагрузка растёт ещё сильнее
+        // Р§РµРј РІС‹С€Рµ С‚СЏР¶РµСЃС‚СЊ, С‚РµРј СЃРёР»СЊРЅРµРµ СЌС„С„РµРєС‚С‹
+        // Р’РјРµС€Р°С‚СЊСЃСЏ: РґРѕРІРµСЂРёРµ СЂР°СЃС‚С‘С‚, РЅР°РіСЂСѓР·РєР° СЂР°СЃС‚С‘С‚, РєРѕРЅС‚СЂРѕР»СЊ СЃР»РµРіРєР° СЂР°СЃС‚С‘С‚
+        // Р’С‹Р¶РґР°С‚СЊ: РґРѕРІСЂРёРµ РїР°РґР°РµС‚, РєРѕРЅС‚СЂРѕР»СЊ РїР°РґР°РµС‚, РЅР°РіСЂСѓР·РєР° СЂР°СЃС‚С‘С‚ РµС‰С‘ СЃРёР»СЊРЅРµРµ
         if (protocol == ProtocolId.Intervene)
-            _metrics.ApplyChange(+2 + severity / 3, +1, +3 + severity); // пример
+            _metrics.ApplyChange(+2 + severity / 3, +1, +3 + severity); // РїСЂРёРјРµСЂ
         else
             _metrics.ApplyChange(-3 - severity / 2, -2, +5 + severity * 2);
     }
 
     private void ApplyAccident(ProtocolId protocol, int severity)
     {
-        // ДТП: контроль важнее, доверие менее чувствительно, нагрузка тоже растёт
+        // Р”РўРџ: РєРѕРЅС‚СЂРѕР»СЊ РІР°Р¶РЅРµРµ, РґРѕРІРµСЂРёРµ РјРµРЅРµРµ С‡СѓРІСЃС‚РІРёС‚РµР»СЊРЅРѕ, РЅР°РіСЂСѓР·РєР° С‚РѕР¶Рµ СЂР°СЃС‚С‘С‚
         if (protocol == ProtocolId.Intervene)
-            _metrics.ApplyChange(+1, +2 + severity / 2, +2 + severity); // пример
+            _metrics.ApplyChange(+1, +2 + severity / 2, +2 + severity); // РїСЂРёРјРµСЂ
         else
             _metrics.ApplyChange(-2, -3 - severity / 2, +3 + severity * 2);
     }

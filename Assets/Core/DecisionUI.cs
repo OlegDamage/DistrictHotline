@@ -1,4 +1,4 @@
-using TMPro;
+ï»¿using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,11 +16,11 @@ public class DecisionUI : MonoBehaviour
     [Header("Refs")]
     [SerializeField] private IncidentSystem incidentSystem;
 
-    private bool _locked; // çàùèòà îò äâîéíîãî êëèêà
+    private bool _locked; // Ð·Ð°Ñ‰Ð¸Ñ‚Ð° Ð¾Ñ‚ Ð´Ð²Ð¾Ð¹Ð½Ð¾Ð³Ð¾ ÐºÐ»Ð¸ÐºÐ°
 
     private void Awake()
     {
-        // Ïðÿì ïàíåëü íà ñòàðòå
+        // ÐŸÑ€ÑÐ¼ Ð¿Ð°Ð½ÐµÐ»ÑŒ Ð½Ð° ÑÑ‚Ð°Ñ€Ñ‚Ðµ
         if (root != null) root.SetActive(false);
 
         protocolAButton.onClick.AddListener(() => Choose(ProtocolId.Intervene));

@@ -1,4 +1,4 @@
-using UnityEngine;
+п»їusing UnityEngine;
 
 public class GameStateManager : MonoBehaviour
 {
@@ -8,7 +8,7 @@ public class GameStateManager : MonoBehaviour
 
     private void Awake()
     {
-        // Проверка на дубликат GameStateManager
+        // РџСЂРѕРІРµСЂРєР° РЅР° РґСѓР±Р»РёРєР°С‚ GameStateManager
         if(_instance != null && _instance != this)
         {
             Destroy(gameObject);
