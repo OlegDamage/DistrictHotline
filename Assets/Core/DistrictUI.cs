@@ -12,12 +12,25 @@ public class DistrictUI : MonoBehaviour
     [SerializeField] private Image dangerIcon; // обозначение инцидента
     [SerializeField] private Image signalDot; // обозначение инцидента
     [SerializeField] private TextMeshProUGUI statusLabel; // текст сообщения
+    [SerializeField] private RectTransform districtRoot;// контейнер правой панели
+    [SerializeField] CanvasGroup flashGroup; // полупрозрачный img поверх панели
 
     [Header("Pulse")]
     [SerializeField, Range(0.1f, 3f)] private float pulseSpeed = 2f;
     [SerializeField, Range(0f, 1f)] private float minAlpha = 0.25f;
 
+    [Header("Signal FX")]
+    //[SerializeField, Range(0.02f, 0.3f)] private float flashDuration = 0.08f;
+    [SerializeField, Range(0.5f, 1f)] private float flashAlpha = 0.6f;
+    [SerializeField, Range(0.02f, 0.2f)] private float glitchDuration = 0.08f;
+    [SerializeField, Range(1f, 10f)] private float glitchStrength = 4f;
+
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip pingClip;
+
     private Coroutine pulseRoutine;
+    private Coroutine signalFxRoutine;
     private DistrictState currentState = DistrictState.Normal;
 
     private void Awake()
@@ -48,6 +61,7 @@ public class DistrictUI : MonoBehaviour
     private void HandleIncidentRaised(Incident incident)
     {
         SetDistrictState(DistrictState.Incident);
+        PlaySignalFx();
     }
     private void HandleIncidentCleared()
     {
@@ -137,5 +151,48 @@ public class DistrictUI : MonoBehaviour
         var c = g.color;
         c.a = a;
         g.color = c;
+    }
+
+    private void PlaySignalFx()
+    {
+        if (signalFxRoutine != null) StopCoroutine(signalFxRoutine);
+        signalFxRoutine = StartCoroutine(SignalFxRoutine());
+    }
+
+    private IEnumerator SignalFxRoutine()
+    {
+        if (audioSource && pingClip) audioSource.PlayOneShot(pingClip);
+
+        Vector2 originalPos = districtRoot ? districtRoot.anchoredPosition : Vector2.zero;
+
+        float t = 0f;
+        while (t < glitchDuration)
+        {
+            t += Time.deltaTime;
+
+            // glitch: случайное смещение
+            if(districtRoot)
+            {
+                float x = Random.Range(-glitchStrength, glitchStrength);
+                float y = Random.Range(-glitchStrength, glitchStrength);
+                districtRoot.anchoredPosition = originalPos + new Vector2(x, y);
+            }
+
+            // flash: быстро вверх-вниз
+            if (flashGroup)
+            {
+                float k = (t / glitchDuration);
+                // треугольная форма: 0 -> 1 -> 0
+                float tri = 1f - Mathf.Abs(2f * k - 1f);
+                flashGroup.alpha = tri * flashAlpha;
+            }
+
+            yield return null;
+        }
+
+        if (districtRoot) districtRoot.anchoredPosition = originalPos;
+        if (flashGroup) flashGroup.alpha = 0f;
+
+        signalFxRoutine = null;
     }
 }

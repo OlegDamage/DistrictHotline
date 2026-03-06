@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\Aleh Vozny\\Projects\\Unity\\DistrictHotline\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E418D113-BE57-095A-9CA3-673E806B4540}|Assembly-CSharp.csproj|c:\\users\\aleh vozny\\projects\\unity\\districthotline\\assets\\systems\\incidentsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E418D113-BE57-095A-9CA3-673E806B4540}|Assembly-CSharp.csproj|solutionrelative:assets\\systems\\incidentsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E418D113-BE57-095A-9CA3-673E806B4540}|Assembly-CSharp.csproj|C:\\Users\\Aleh Vozny\\Projects\\Unity\\DistrictHotline\\assets\\core\\districtui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E418D113-BE57-095A-9CA3-673E806B4540}|Assembly-CSharp.csproj|solutionrelative:assets\\core\\districtui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E418D113-BE57-095A-9CA3-673E806B4540}|Assembly-CSharp.csproj|c:\\users\\aleh vozny\\projects\\unity\\districthotline\\assets\\core\\districtui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E418D113-BE57-095A-9CA3-673E806B4540}|Assembly-CSharp.csproj|solutionrelative:assets\\core\\districtui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E418D113-BE57-095A-9CA3-673E806B4540}|Assembly-CSharp.csproj|c:\\users\\aleh vozny\\projects\\unity\\districthotline\\assets\\core\\districtstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E418D113-BE57-095A-9CA3-673E806B4540}|Assembly-CSharp.csproj|solutionrelative:assets\\core\\districtstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,30 +18,30 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "IncidentSystem.cs",
-              "DocumentMoniker": "C:\\Users\\Aleh Vozny\\Projects\\Unity\\DistrictHotline\\Assets\\Systems\\IncidentSystem.cs",
-              "RelativeDocumentMoniker": "Assets\\Systems\\IncidentSystem.cs",
-              "ToolTip": "C:\\Users\\Aleh Vozny\\Projects\\Unity\\DistrictHotline\\Assets\\Systems\\IncidentSystem.cs",
-              "RelativeToolTip": "Assets\\Systems\\IncidentSystem.cs",
-              "ViewState": "AgIAAHAAAAAAAAAAAAAwwE4AAAA2AAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "DistrictState.cs",
+              "DocumentMoniker": "C:\\Users\\Aleh Vozny\\Projects\\Unity\\DistrictHotline\\Assets\\Core\\DistrictState.cs",
+              "RelativeDocumentMoniker": "Assets\\Core\\DistrictState.cs",
+              "ToolTip": "C:\\Users\\Aleh Vozny\\Projects\\Unity\\DistrictHotline\\Assets\\Core\\DistrictState.cs",
+              "RelativeToolTip": "Assets\\Core\\DistrictState.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAQAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-03T11:51:49.271Z",
+              "WhenOpened": "2026-03-03T21:07:19.131Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "DistrictUI.cs",
               "DocumentMoniker": "C:\\Users\\Aleh Vozny\\Projects\\Unity\\DistrictHotline\\Assets\\Core\\DistrictUI.cs",
               "RelativeDocumentMoniker": "Assets\\Core\\DistrictUI.cs",
               "ToolTip": "C:\\Users\\Aleh Vozny\\Projects\\Unity\\DistrictHotline\\Assets\\Core\\DistrictUI.cs",
               "RelativeToolTip": "Assets\\Core\\DistrictUI.cs",
-              "ViewState": "AgIAAC4AAAAAAAAAAAAkwDkAAAAnAAAAAAAAAA==",
+              "ViewState": "AgIAADkAAAAAAAAAAAAowAYAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-03T10:50:15.701Z",
               "EditorCaption": ""
