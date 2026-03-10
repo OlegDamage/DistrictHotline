@@ -19,7 +19,8 @@ public class CityMetrics : MonoBehaviour
     public int Load => load;
 
     // Ивент на изменение параметров в UI
-    public event Action<int, int, int> OnMetricsChanged;
+    //public event Action<int, int, int> OnMetricsChanged;
+    public event Action OnMetricsChanged;
 
     /// <summary>
     /// Применяет изменения к метрикам.
@@ -41,6 +42,7 @@ public class CityMetrics : MonoBehaviour
         Debug.Log($"[CityMetrics] Applied Δ(T:{trustDelta}, C:{controlDelta}, L:{loadDelta}) -> " +
                   $"Now (T:{trust}, C:{control}, L:{load})");
 
-        OnMetricsChanged?.Invoke(trust, control, load);
+        //OnMetricsChanged?.Invoke(trust, control, load);
+        OnMetricsChanged?.Invoke();
     }
 }

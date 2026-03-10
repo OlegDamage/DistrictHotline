@@ -3,7 +3,15 @@
   "WorkspaceRootPath": "C:\\Users\\Aleh Vozny\\Projects\\Unity\\DistrictHotline\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E418D113-BE57-095A-9CA3-673E806B4540}|Assembly-CSharp.csproj|c:\\users\\aleh vozny\\projects\\unity\\districthotline\\assets\\core\\districtui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{E418D113-BE57-095A-9CA3-673E806B4540}|Assembly-CSharp.csproj|c:\\users\\aleh vozny\\projects\\unity\\districthotline\\assets\\core\\metricsui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E418D113-BE57-095A-9CA3-673E806B4540}|Assembly-CSharp.csproj|solutionrelative:assets\\core\\metricsui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E418D113-BE57-095A-9CA3-673E806B4540}|Assembly-CSharp.csproj|c:\\users\\aleh vozny\\projects\\unity\\districthotline\\assets\\core\\citymetrics.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E418D113-BE57-095A-9CA3-673E806B4540}|Assembly-CSharp.csproj|solutionrelative:assets\\core\\citymetrics.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E418D113-BE57-095A-9CA3-673E806B4540}|Assembly-CSharp.csproj|C:\\Users\\Aleh Vozny\\Projects\\Unity\\DistrictHotline\\assets\\core\\districtui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E418D113-BE57-095A-9CA3-673E806B4540}|Assembly-CSharp.csproj|solutionrelative:assets\\core\\districtui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -23,6 +31,32 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "CityMetrics.cs",
+              "DocumentMoniker": "C:\\Users\\Aleh Vozny\\Projects\\Unity\\DistrictHotline\\Assets\\Core\\CityMetrics.cs",
+              "RelativeDocumentMoniker": "Assets\\Core\\CityMetrics.cs",
+              "ToolTip": "C:\\Users\\Aleh Vozny\\Projects\\Unity\\DistrictHotline\\Assets\\Core\\CityMetrics.cs",
+              "RelativeToolTip": "Assets\\Core\\CityMetrics.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAuwBYAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-09T21:44:32.043Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MetricsUI.cs",
+              "DocumentMoniker": "C:\\Users\\Aleh Vozny\\Projects\\Unity\\DistrictHotline\\Assets\\Core\\MetricsUI.cs",
+              "RelativeDocumentMoniker": "Assets\\Core\\MetricsUI.cs",
+              "ToolTip": "C:\\Users\\Aleh Vozny\\Projects\\Unity\\DistrictHotline\\Assets\\Core\\MetricsUI.cs",
+              "RelativeToolTip": "Assets\\Core\\MetricsUI.cs",
+              "ViewState": "AgIAAFMAAAAAAAAAAAAYwHEAAABFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-09T09:15:10.737Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "DistrictState.cs",
               "DocumentMoniker": "C:\\Users\\Aleh Vozny\\Projects\\Unity\\DistrictHotline\\Assets\\Core\\DistrictState.cs",
               "RelativeDocumentMoniker": "Assets\\Core\\DistrictState.cs",
@@ -34,7 +68,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "DistrictUI.cs",
               "DocumentMoniker": "C:\\Users\\Aleh Vozny\\Projects\\Unity\\DistrictHotline\\Assets\\Core\\DistrictUI.cs",
               "RelativeDocumentMoniker": "Assets\\Core\\DistrictUI.cs",
@@ -42,8 +76,7 @@
               "RelativeToolTip": "Assets\\Core\\DistrictUI.cs",
               "ViewState": "AgIAAJUAAAAAAAAAAAAhwKMAAABFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-03T10:50:15.701Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-03T10:50:15.701Z"
             }
           ]
         }
