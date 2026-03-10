@@ -19,6 +19,13 @@ public class MetricsUI : MonoBehaviour
     [SerializeField] private Color positiveColor = new Color(0.6f, 1f, 0.6f);
     [SerializeField] private Color negativeColor = new Color(1f, 0.5f, 0.5f);
 
+    [Header("Load Shake")]
+    [SerializeField, Range(0.05f, 0.5f)] private float shakeDuration = 0.15f;
+    [SerializeField, Range(1f, 10f)] private float shakeStrength = 2f;
+
+    private Coroutine loadShakeRoutine;
+    private Vector3 loadTextOriginalPos;
+
     private int currentTrust;
     private int currentControl;
     private int currentLoad;
@@ -50,6 +57,8 @@ public class MetricsUI : MonoBehaviour
         trustText.color = defaultColor;
         controlText.color = defaultColor;
         loadText.color = defaultColor;
+
+        loadTextOriginalPos = loadText.rectTransform.localPosition;
     }
 
     private void OnEnable()
@@ -71,7 +80,8 @@ public class MetricsUI : MonoBehaviour
             currentTrust,
             cityMetrics.Trust,
             ref trustValueRoutine,
-            ref trustFlashRoutine
+            ref trustFlashRoutine,
+            true
         );
 
         UpdateMetric(
@@ -79,7 +89,8 @@ public class MetricsUI : MonoBehaviour
             currentControl,
             cityMetrics.Control,
             ref controlValueRoutine,
-            ref controlFlashRoutine
+            ref controlFlashRoutine,
+            true
         );
 
         UpdateMetric(
@@ -87,8 +98,15 @@ public class MetricsUI : MonoBehaviour
            currentLoad,
            cityMetrics.Load,
            ref loadValueRoutine,
-           ref loadFlashRoutine
-       );
+           ref loadFlashRoutine,
+           false
+        );
+
+        if(cityMetrics.Load > currentLoad)
+        {
+            if(loadShakeRoutine != null) StopCoroutine(loadShakeRoutine);
+            loadShakeRoutine = StartCoroutine(ShakeLoadText());
+        }
 
         currentTrust = cityMetrics.Trust;
         currentControl = cityMetrics.Control;
@@ -100,14 +118,17 @@ public class MetricsUI : MonoBehaviour
         int oldValue,
         int newValue,
         ref Coroutine valueRoutine,
-        ref Coroutine flashRoutine)
+        ref Coroutine flashRoutine,
+        bool higerIsBetter)
     {
         if (oldValue == newValue) return;
         if (valueRoutine != null) StopCoroutine(valueRoutine);
 
         valueRoutine = StartCoroutine(AnimateValue(textElement, oldValue, newValue));
 
-        bool positive = newValue > oldValue;
+        bool positive = higerIsBetter
+            ? newValue > oldValue
+            : newValue < oldValue;
 
         if(flashRoutine != null) StopCoroutine(flashRoutine);
 
@@ -148,5 +169,24 @@ public class MetricsUI : MonoBehaviour
         }
 
         textElement.color = defaultColor;
+    }
+
+    private IEnumerator ShakeLoadText()
+    {
+        float elapsed = 0f;
+
+        while (elapsed < shakeDuration)
+        {
+            elapsed += Time.deltaTime;
+
+            float offsetX = Random.Range(-shakeStrength, shakeStrength);
+            float offsetY = Random.Range(-shakeStrength, shakeStrength);
+
+            loadText.rectTransform.localPosition = loadTextOriginalPos + new Vector3(offsetX, offsetY, 0f);
+            yield return null;
+        }
+
+        loadText.rectTransform.localPosition = loadTextOriginalPos;
+        loadShakeRoutine = null;
     }
 }
