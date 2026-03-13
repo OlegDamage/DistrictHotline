@@ -11,7 +11,7 @@
       "RelativeMoniker": "D:0:0:{E418D113-BE57-095A-9CA3-673E806B4540}|Assembly-CSharp.csproj|solutionrelative:assets\\core\\districtui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E418D113-BE57-095A-9CA3-673E806B4540}|Assembly-CSharp.csproj|c:\\users\\aleh vozny\\projects\\unity\\districthotline\\assets\\core\\metricsui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{E418D113-BE57-095A-9CA3-673E806B4540}|Assembly-CSharp.csproj|C:\\Users\\Aleh Vozny\\Projects\\Unity\\DistrictHotline\\assets\\core\\metricsui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E418D113-BE57-095A-9CA3-673E806B4540}|Assembly-CSharp.csproj|solutionrelative:assets\\core\\metricsui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -40,7 +40,7 @@
               "RelativeDocumentMoniker": "Assets\\Core\\DecisionUI.cs",
               "ToolTip": "C:\\Users\\Aleh Vozny\\Projects\\Unity\\DistrictHotline\\Assets\\Core\\DecisionUI.cs",
               "RelativeToolTip": "Assets\\Core\\DecisionUI.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAaAAAAAAAAAA==",
+              "ViewState": "AgIAAHYAAAAAAAAAAAAAwJUAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-12T10:23:42.861Z",
               "EditorCaption": ""
@@ -67,8 +67,7 @@
               "RelativeToolTip": "Assets\\Core\\MetricsUI.cs",
               "ViewState": "AgIAAFMAAAAAAAAAAAAYwHEAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-09T09:15:10.737Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-09T09:15:10.737Z"
             },
             {
               "$type": "Document",
@@ -92,8 +91,7 @@
               "RelativeToolTip": "Assets\\Core\\DistrictUI.cs",
               "ViewState": "AgIAABgAAAAAAAAAAAAMwCsAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-03T10:50:15.701Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-03T10:50:15.701Z"
             }
           ]
         }

@@ -1643,6 +1643,8 @@ MonoBehaviour:
   titleText: {fileID: 1174845303}
   protocolAButton: {fileID: 964266287}
   protocolBButton: {fileID: 1438323087}
+  protocolAFeedback: {fileID: 0}
+  protocolBFeedback: {fileID: 0}
   incidentSystem: {fileID: 1367217455}
   dimBackground: {fileID: 875671198}
   windowCanvasGroup: {fileID: 78704759}
@@ -1888,6 +1890,7 @@ GameObject:
   - component: {fileID: 964266289}
   - component: {fileID: 964266288}
   - component: {fileID: 964266287}
+  - component: {fileID: 964266290}
   m_Layer: 5
   m_Name: Btn_ProtocolA
   m_TagString: Untagged
@@ -1997,6 +2000,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 964266285}
   m_CullTransparentMesh: 1
+--- !u!114 &964266290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 964266285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3b68891d15c9e246a5b2bcf7237d67c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProtocolButtonFeedback
+  target: {fileID: 964266286}
+  targetGraphic: {fileID: 964266288}
+  normalScale: 1
+  hoverScale: 1.04
+  pressedScale: 0.97
+  normalColor: {r: 0.15686275, g: 0.15686275, b: 0.5529412, a: 1}
+  hoverColor: {r: 0.39215687, g: 0.39215687, b: 1, a: 1}
+  disabledColor: {r: 0.07058824, g: 0.07058824, b: 0.26666668, a: 0.8}
+  animDuration: 0.08
 --- !u!1 &1031484246
 GameObject:
   m_ObjectHideFlags: 0
@@ -2953,6 +2977,7 @@ GameObject:
   - component: {fileID: 1438323089}
   - component: {fileID: 1438323088}
   - component: {fileID: 1438323087}
+  - component: {fileID: 1438323090}
   m_Layer: 5
   m_Name: Btn_ProtocolB
   m_TagString: Untagged
@@ -3037,7 +3062,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.16470589, g: 0.16470589, b: 0.5764706, a: 1}
+  m_Color: {r: 0.15686275, g: 0.15686275, b: 0.5529412, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3062,6 +3087,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1438323085}
   m_CullTransparentMesh: 1
+--- !u!114 &1438323090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438323085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3b68891d15c9e246a5b2bcf7237d67c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProtocolButtonFeedback
+  target: {fileID: 1438323086}
+  targetGraphic: {fileID: 1438323088}
+  normalScale: 1
+  hoverScale: 1.04
+  pressedScale: 0.97
+  normalColor: {r: 0.15686275, g: 0.15686275, b: 0.5529412, a: 1}
+  hoverColor: {r: 0.390566, g: 0.390566, b: 1, a: 1}
+  disabledColor: {r: 0.07228905, g: 0.07228905, b: 0.2679245, a: 0.8}
+  animDuration: 0.08
 --- !u!1 &1493708318
 GameObject:
   m_ObjectHideFlags: 0

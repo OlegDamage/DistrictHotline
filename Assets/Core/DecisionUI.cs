@@ -12,6 +12,8 @@ public class DecisionUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI titleText;// Текст описания инцидента
     [SerializeField] private Button protocolAButton;// Кнопка А протокола
     [SerializeField] private Button protocolBButton;// Кнопка B протокола
+    [SerializeField] private ProtocolButtonFeedback protocolAFeedback;
+    [SerializeField] private ProtocolButtonFeedback protocolBFeedback;
 
     [Header("Refs")]
     [SerializeField] private IncidentSystem incidentSystem;
@@ -60,9 +62,13 @@ public class DecisionUI : MonoBehaviour
 
         protocolAButton.interactable = true;
         protocolBButton.interactable = true;
+
+        if (protocolAFeedback != null) protocolAFeedback.SetLocked(false);
+        if (protocolBFeedback != null) protocolBFeedback.SetLocked(false);
+
         _locked = false;
 
-        if(root != null) root.SetActive(true);
+        if (root != null) root.SetActive(true);
 
         StartTransition(true);
     }
@@ -82,6 +88,9 @@ public class DecisionUI : MonoBehaviour
 
         protocolAButton.interactable = false;
         protocolBButton.interactable = false;
+
+        if (protocolAFeedback != null) protocolAFeedback.SetLocked(true);
+        if (protocolBFeedback != null) protocolBFeedback.SetLocked(true);
 
         incidentSystem.ResolveIncident(protocol);
     }
