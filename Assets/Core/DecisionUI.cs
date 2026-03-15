@@ -26,6 +26,9 @@ public class DecisionUI : MonoBehaviour
     [SerializeField, Range(0.05f, 0.5f)] private float hideDuration = 0.15f;
     [SerializeField, Range(0.8f, 1f)] private float startScale = 0.95f;
     [SerializeField, Range(0f, 1f)] private float dimTargetAlpha = 0.4f;
+    [SerializeField, Range(0.05f, 0.3f)] private float confirmDelay = 0.12f;
+
+    private Coroutine confirmRoutine;
 
     private bool _locked;
     private Coroutine transitionRoutine;
@@ -83,16 +86,16 @@ public class DecisionUI : MonoBehaviour
 
     private void Choose(ProtocolId protocol)
     {
-        if(_locked) return;
+        if (_locked) return;
         _locked = true;
 
         protocolAButton.interactable = false;
         protocolBButton.interactable = false;
 
-        if (protocolAFeedback != null) protocolAFeedback.SetLocked(true);
-        if (protocolBFeedback != null) protocolBFeedback.SetLocked(true);
+        if (confirmRoutine != null)
+            StopCoroutine(confirmRoutine);
 
-        incidentSystem.ResolveIncident(protocol);
+        confirmRoutine = StartCoroutine(ChooseRoutine(protocol));
     }
 
     private void StartTransition(bool show)
@@ -157,6 +160,27 @@ public class DecisionUI : MonoBehaviour
             dimBackground.blocksRaycasts = show;
             dimBackground.interactable = show;
         }
+    }
+
+    private IEnumerator ChooseRoutine(ProtocolId protocol)
+    {
+        bool isProtocolA = protocol == ProtocolId.Intervene;
+
+        if (isProtocolA)
+        {
+            if (protocolAFeedback != null) protocolAFeedback.PlayConfirm();
+            if (protocolBFeedback != null) protocolBFeedback.PlayRejected();
+        }
+        else
+        {
+            if (protocolBFeedback != null) protocolBFeedback.PlayConfirm();
+            if (protocolAFeedback != null) protocolAFeedback.PlayRejected();
+        }
+
+        yield return new WaitForSeconds(confirmDelay);
+
+        incidentSystem.ResolveIncident(protocol);
+        confirmRoutine = null;
     }
 
     private void SetVisualStateHiddenInstant()

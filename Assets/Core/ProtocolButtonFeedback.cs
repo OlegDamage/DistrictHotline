@@ -22,15 +22,30 @@ public class ProtocolButtonFeedback : MonoBehaviour, IPointerEnterHandler, IPoin
     [Header("Timing")]
     [SerializeField, Range(0.02f, 0.3f)] private float animDuration = 0.08f;
 
+    [Header("Confirm")]
+    [SerializeField, Range(1f, 1.2f)] private float confirmScale = 1.08f;
+    [SerializeField] private Color confirmColor = Color.white;
+    [SerializeField, Range(0.02f, 0.3f)] private float confirmDuration = 0.12f;
+
+    [Header("Rejected")]
+    [SerializeField, Range(0.8f, 1.05f)] private float rejectedScale = 0.98f;
+    [SerializeField] private Color rejectedColor = new Color(0.6f, 0.6f, 0.6f, 0.85f);
+
     private Coroutine scaleRoutine;
     private bool isHovered;
     private bool isPressed;
     private bool isLocked;
+    private bool isConfirmed;
+    private bool isRejected;
 
     private void Awake()
     {
         if (target == null)
             target = transform as RectTransform;
+
+        isLocked = false;
+        isConfirmed = false;
+        isRejected = false;
 
         ApplyImmediate(normalScale, normalColor);
     }
@@ -42,10 +57,11 @@ public class ProtocolButtonFeedback : MonoBehaviour, IPointerEnterHandler, IPoin
         if (isLocked)
         {
             StopCurrentAnimation();
-            ApplyImmediate(normalScale, disabledColor);
             return;
         }
 
+        isConfirmed = false;
+        isRejected = false;
         ApplyVisualState();
     }
 
@@ -80,6 +96,26 @@ public class ProtocolButtonFeedback : MonoBehaviour, IPointerEnterHandler, IPoin
 
     private void ApplyVisualState()
     {
+        if (isConfirmed)
+        {
+            StartScaleAnimation(confirmScale);
+
+            if (targetGraphic != null)
+                targetGraphic.color = confirmColor;
+
+            return;
+        }
+
+        if (isRejected)
+        {
+            StartScaleAnimation(rejectedScale);
+
+            if (targetGraphic != null)
+                targetGraphic.color = rejectedColor;
+
+            return;
+        }
+
         float targetScale = normalScale;
         Color targetColor = normalColor;
 
@@ -141,5 +177,35 @@ public class ProtocolButtonFeedback : MonoBehaviour, IPointerEnterHandler, IPoin
             StopCoroutine(scaleRoutine);
             scaleRoutine = null;
         }
+    }
+
+    public void PlayConfirm()
+    {
+        if (isLocked && isConfirmed) return;
+
+        isLocked = true;
+        isConfirmed = true;
+        isRejected = false;
+
+        StopCurrentAnimation();
+        StartScaleAnimation(confirmScale);
+
+        if (targetGraphic != null)
+            targetGraphic.color = confirmColor;
+    }
+
+    public void PlayRejected()
+    {
+        if (isLocked && isRejected) return;
+
+        isLocked = true;
+        isRejected = true;
+        isConfirmed = false;
+
+        StopCurrentAnimation();
+        StartScaleAnimation(rejectedScale);
+
+        if (targetGraphic != null)
+            targetGraphic.color = rejectedColor;
     }
 }

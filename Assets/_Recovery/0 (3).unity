@@ -1643,8 +1643,8 @@ MonoBehaviour:
   titleText: {fileID: 1174845303}
   protocolAButton: {fileID: 964266287}
   protocolBButton: {fileID: 1438323087}
-  protocolAFeedback: {fileID: 964266290}
-  protocolBFeedback: {fileID: 1438323090}
+  protocolAFeedback: {fileID: 0}
+  protocolBFeedback: {fileID: 0}
   incidentSystem: {fileID: 1367217455}
   dimBackground: {fileID: 875671198}
   windowCanvasGroup: {fileID: 78704759}
@@ -1653,7 +1653,6 @@ MonoBehaviour:
   hideDuration: 0.15
   startScale: 0.95
   dimTargetAlpha: 0.8
-  confirmDelay: 0.12
 --- !u!1 &854421038
 GameObject:
   m_ObjectHideFlags: 0
@@ -2022,11 +2021,6 @@ MonoBehaviour:
   hoverColor: {r: 0.39215687, g: 0.39215687, b: 1, a: 1}
   disabledColor: {r: 0.07058824, g: 0.07058824, b: 0.26666668, a: 0.8}
   animDuration: 0.08
-  confirmScale: 1.08
-  confirmColor: {r: 0.19584897, g: 0.19584897, b: 0.6528301, a: 1}
-  confirmDuration: 0.12
-  rejectedScale: 0.98
-  rejectedColor: {r: 0.07058824, g: 0.07058824, b: 0.26666668, a: 0.85}
 --- !u!1 &1031484246
 GameObject:
   m_ObjectHideFlags: 0
@@ -3111,14 +3105,9 @@ MonoBehaviour:
   hoverScale: 1.04
   pressedScale: 0.97
   normalColor: {r: 0.15686275, g: 0.15686275, b: 0.5529412, a: 1}
-  hoverColor: {r: 0.39215687, g: 0.39215687, b: 1, a: 1}
-  disabledColor: {r: 0.07058824, g: 0.07058824, b: 0.26666668, a: 0.8}
+  hoverColor: {r: 0.390566, g: 0.390566, b: 1, a: 1}
+  disabledColor: {r: 0.07228905, g: 0.07228905, b: 0.2679245, a: 0.8}
   animDuration: 0.08
-  confirmScale: 1.08
-  confirmColor: {r: 0.19584897, g: 0.19584897, b: 0.6528301, a: 1}
-  confirmDuration: 0.12
-  rejectedScale: 0.98
-  rejectedColor: {r: 0.07058824, g: 0.07058824, b: 0.26666668, a: 0.85}
 --- !u!1 &1493708318
 GameObject:
   m_ObjectHideFlags: 0
