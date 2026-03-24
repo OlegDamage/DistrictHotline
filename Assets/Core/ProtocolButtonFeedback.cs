@@ -62,7 +62,10 @@ public class ProtocolButtonFeedback : MonoBehaviour, IPointerEnterHandler, IPoin
 
         isConfirmed = false;
         isRejected = false;
-        ApplyVisualState();
+        isHovered = false;
+        isPressed = false;
+
+        ApplyImmediate(normalScale, normalColor);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -139,6 +142,14 @@ public class ProtocolButtonFeedback : MonoBehaviour, IPointerEnterHandler, IPoin
     private void StartScaleAnimation(float targetScale)
     {
         StopCurrentAnimation();
+
+        if (!gameObject.activeInHierarchy)
+        {
+            if (target != null)
+                target.localScale = new Vector3(targetScale, targetScale, targetScale);
+            return;
+        }
+
         scaleRoutine = StartCoroutine(ScaleRoutine(targetScale));
     }
 

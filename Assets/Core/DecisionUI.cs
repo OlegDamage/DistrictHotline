@@ -63,6 +63,8 @@ public class DecisionUI : MonoBehaviour
         severityText.text = inc.BaseSeverity.ToString();
         titleText.text = inc.Title;
 
+        if (root != null) root.SetActive(true);
+
         protocolAButton.interactable = true;
         protocolBButton.interactable = true;
 
@@ -70,8 +72,6 @@ public class DecisionUI : MonoBehaviour
         if (protocolBFeedback != null) protocolBFeedback.SetLocked(false);
 
         _locked = false;
-
-        if (root != null) root.SetActive(true);
 
         StartTransition(true);
     }

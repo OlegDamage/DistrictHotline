@@ -25,6 +25,17 @@ public class DistrictUI : MonoBehaviour
     [SerializeField, Range(0.02f, 0.2f)] private float glitchDuration = 0.08f;
     [SerializeField, Range(1f, 10f)] private float glitchStrength = 4f;
 
+    [Header("Critical")]
+    [SerializeField, Range(0.1f, 5f)] private float criticalPulseSpeed = 3.5f;
+    [SerializeField, Range(0f, 1f)] private float criticalMinAlpha = 0.45f;
+    [SerializeField] private Color normalAlertColor = Color.white;
+    [SerializeField] private Color criticalAlertColor = new Color(1f, 0.35f, 0.35f, 1f);
+    [SerializeField] private Image criticalTint;
+    [SerializeField, Range(0f, 1f)] private float criticalTintAlpha = 0.18f;
+
+    [SerializeField, Range(0.5f, 2f)] private float criticalFlashMultiplier = 1.25f;
+    [SerializeField, Range(1f, 3f)] private float criticalGlitchMultiplier = 1.5f;
+
     [Header("Audio")]
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip pingClip;
@@ -35,7 +46,7 @@ public class DistrictUI : MonoBehaviour
 
     private void Awake()
     {
-        ApplyStateInstant(DistrictState.Normal);
+        ApplyNormalState();
     }
 
     private void OnEnable()
@@ -61,8 +72,9 @@ public class DistrictUI : MonoBehaviour
     private void HandleIncidentRaised(Incident incident)
     {
         SetDistrictState(DistrictState.Incident);
-        PlaySignalFx();
+        PlaySignalFx(false);
     }
+
     private void HandleIncidentCleared()
     {
         SetDistrictState(DistrictState.Normal);
@@ -70,7 +82,7 @@ public class DistrictUI : MonoBehaviour
 
     public void SetDistrictState(DistrictState state)
     {
-        if(currentState == state) return;
+        if (currentState == state) return;
         currentState = state;
 
         StopPulse();
@@ -78,49 +90,119 @@ public class DistrictUI : MonoBehaviour
         switch (state)
         {
             case DistrictState.Normal:
-                ApplyStateInstant(DistrictState.Normal);
+                ApplyNormalState();
                 break;
 
             case DistrictState.Incident:
-                ApplyStateInstant(DistrictState.Incident);
-                StartPulse();
+                ApplyIncidentState();
+                StartPulse(pulseSpeed, minAlpha);
                 break;
 
             case DistrictState.Critical:
-                ApplyStateInstant(DistrictState.Critical);
-                StartPulse();// позже надо усилить
+                ApplyCriticalState();
+                StartPulse(criticalPulseSpeed, criticalMinAlpha);
+                PlaySignalFx(true);
                 break;
         }
     }
 
-    private void ApplyStateInstant(DistrictState state)
+    private void ApplyNormalState()
     {
-        bool alert = state != DistrictState.Normal;
-
-        if (dangerIcon) dangerIcon.gameObject.SetActive(alert);
-        if (signalDot) signalDot.gameObject.SetActive(alert);
-
-        if(statusLabel)
+        if (dangerIcon)
         {
-            statusLabel.gameObject.SetActive(true);
-            statusLabel.text = state switch
-            {
-                DistrictState.Normal => "СИСТЕМА СТАБИЛЬНА",
-                DistrictState.Incident => "СИГНАЛ ПОЛУЧЕН",
-                DistrictState.Critical => "КРИТИЧЕСКИЙ УРОВЕНЬ",
-                _ => ""
-            };
+            dangerIcon.gameObject.SetActive(false);
+            dangerIcon.color = normalAlertColor;
+            SetAlpha(dangerIcon, 1f);
         }
 
-        // Сброс альфы, чтобы после пульса всё было предсказуемо
-        if (dangerIcon) SetAlpha(dangerIcon, 1f);
-        if (signalDot) SetAlpha(signalDot, 1f);
+        if (signalDot)
+        {
+            signalDot.gameObject.SetActive(false);
+            signalDot.color = normalAlertColor;
+            SetAlpha(signalDot, 1f);
+        }
+
+        if (criticalTint)
+        {
+            criticalTint.gameObject.SetActive(false);
+            SetAlpha(criticalTint, 0f);
+        }
+
+        if (statusLabel)
+        {
+            statusLabel.gameObject.SetActive(true);
+            statusLabel.text = "СИСТЕМА СТАБИЛЬНА";
+        }
     }
 
-    private void StartPulse()
+    private void ApplyIncidentState()
     {
-        if(pulseRoutine != null) StopCoroutine(pulseRoutine);
-        pulseRoutine = StartCoroutine(PulseLoop());
+        if (dangerIcon)
+        {
+            dangerIcon.gameObject.SetActive(true);
+            dangerIcon.color = normalAlertColor;
+            SetAlpha(dangerIcon, 1f);
+        }
+
+        if (signalDot)
+        {
+            signalDot.gameObject.SetActive(true);
+            signalDot.color = normalAlertColor;
+            SetAlpha(signalDot, 1f);
+        }
+
+        if (criticalTint)
+        {
+            criticalTint.gameObject.SetActive(false);
+            SetAlpha(criticalTint, 0f);
+        }
+
+        if (statusLabel)
+        {
+            statusLabel.gameObject.SetActive(true);
+            statusLabel.text = "СИГНАЛ ПОЛУЧЕН";
+        }
+    }
+
+    private void ApplyCriticalState()
+    {
+        if (dangerIcon)
+        {
+            dangerIcon.gameObject.SetActive(true);
+            dangerIcon.color = criticalAlertColor;
+            SetAlpha(dangerIcon, 1f);
+        }
+
+        if (signalDot)
+        {
+            signalDot.gameObject.SetActive(true);
+            signalDot.color = criticalAlertColor;
+            SetAlpha(signalDot, 1f);
+        }
+
+        if (criticalTint)
+        {
+            criticalTint.gameObject.SetActive(true);
+            criticalTint.color = new Color(
+                criticalTint.color.r,
+                criticalTint.color.g,
+                criticalTint.color.b,
+                1f
+            );
+            SetAlpha(criticalTint, criticalTintAlpha);
+        }
+
+        if (statusLabel)
+        {
+            statusLabel.gameObject.SetActive(true);
+            statusLabel.text = "КРИТИЧЕСКИЙ УРОВЕНЬ";
+        }
+    }
+
+    private void StartPulse(float speed, float minPulseAlpha)
+    {
+        if (pulseRoutine != null) StopCoroutine(pulseRoutine);
+        pulseRoutine = StartCoroutine(PulseLoop(speed, minPulseAlpha));
     }
 
     private void StopPulse()
@@ -130,14 +212,14 @@ public class DistrictUI : MonoBehaviour
         pulseRoutine = null;
     }
 
-    private IEnumerator PulseLoop()
+    private IEnumerator PulseLoop(float speed, float minPulseAlpha)
     {
         float t = 0f;
 
         while (true)
         {
-            t += Time.deltaTime * pulseSpeed;
-            float a = Mathf.Lerp(minAlpha, 1f, (Mathf.Sin(t) + 1f) * 0.5f);
+            t += Time.deltaTime * speed;
+            float a = Mathf.Lerp(minPulseAlpha, 1f, (Mathf.Sin(t) + 1f) * 0.5f);
 
             if (dangerIcon) SetAlpha(dangerIcon, a);
             if (signalDot) SetAlpha(signalDot, a);
@@ -153,38 +235,39 @@ public class DistrictUI : MonoBehaviour
         g.color = c;
     }
 
-    private void PlaySignalFx()
+    private void PlaySignalFx(bool isCritical = false)
     {
         if (signalFxRoutine != null) StopCoroutine(signalFxRoutine);
-        signalFxRoutine = StartCoroutine(SignalFxRoutine());
+        signalFxRoutine = StartCoroutine(SignalFxRoutine(isCritical));
     }
 
-    private IEnumerator SignalFxRoutine()
+    private IEnumerator SignalFxRoutine(bool isCritical)
     {
         if (audioSource && pingClip) audioSource.PlayOneShot(pingClip);
 
         Vector2 originalPos = districtRoot ? districtRoot.anchoredPosition : Vector2.zero;
 
+        float fxGlitchDuration = isCritical ? glitchDuration * criticalGlitchMultiplier : glitchDuration;
+        float fxGlitchStrength = isCritical ? glitchStrength * criticalGlitchMultiplier : glitchStrength;
+        float fxFlashAlpha = isCritical ? flashAlpha * criticalFlashMultiplier : flashAlpha;
+
         float t = 0f;
-        while (t < glitchDuration)
+        while (t < fxGlitchDuration)
         {
             t += Time.deltaTime;
 
-            // glitch: случайное смещение
-            if(districtRoot)
+            if (districtRoot)
             {
-                float x = Random.Range(-glitchStrength, glitchStrength);
-                float y = Random.Range(-glitchStrength, glitchStrength);
+                float x = Random.Range(-fxGlitchStrength, fxGlitchStrength);
+                float y = Random.Range(-fxGlitchStrength, fxGlitchStrength);
                 districtRoot.anchoredPosition = originalPos + new Vector2(x, y);
             }
 
-            // flash: быстро вверх-вниз
             if (flashGroup)
             {
-                float k = (t / glitchDuration);
-                // треугольная форма: 0 -> 1 -> 0
+                float k = t / fxGlitchDuration;
                 float tri = 1f - Mathf.Abs(2f * k - 1f);
-                flashGroup.alpha = tri * flashAlpha;
+                flashGroup.alpha = tri * fxFlashAlpha;
             }
 
             yield return null;
