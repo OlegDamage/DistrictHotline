@@ -71,13 +71,12 @@ public class DistrictUI : MonoBehaviour
 
     private void HandleIncidentRaised(Incident incident)
     {
-        SetDistrictState(DistrictState.Incident);
         PlaySignalFx(false);
     }
 
     private void HandleIncidentCleared()
     {
-        SetDistrictState(DistrictState.Normal);
+        // ничего
     }
 
     public void SetDistrictState(DistrictState state)
